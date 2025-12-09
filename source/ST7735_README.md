@@ -1,13 +1,22 @@
 # ST7735 TFT Display Support for Oopsy
 
-This adds support for **ST7735 RGB TFT displays** (128x160, 65K colors) to Oopsy, as a drop-in replacement for the standard SSD130x OLED displays.
+This adds support for **ST7735 RGB TFT displays** (65K colors) to Oopsy, as a drop-in replacement for the standard SSD130x OLED displays.
 
 ## Features
 
 - 🌈 **Full RGB565 Color Support** - 65,536 colors
 - 🎨 **Colorful UI Themes** - Different color schemes for each display mode
+- 📐 **Multiple Resolutions** - Support for 128x160, 128x128, and 80x160 displays
 - 🔌 **Daisy Patch Compatible Pinout** - Works with standard Daisy Patch wiring
 - 📦 **Drop-in Replacement** - Same API as SSD130x, just change the target
+
+## Supported Screen Sizes
+
+| Target Name | Resolution | Screen Type |
+|-------------|------------|-------------|
+| `seed_st7735` | 128×160 | Standard 1.8" TFT |
+| `seed_st7735_128x128` | 128×128 | Square 1.44" TFT |
+| `seed_st7735_80x160` | 80×160 | Mini 0.96" TFT |
 
 ## Color Themes by Mode
 
@@ -54,7 +63,10 @@ This adds support for **ST7735 RGB TFT displays** (128x160, 65K colors) to Oopsy
 
 ### 1. Select the ST7735 Target
 
-In `oopsy.maxpat`, select **seed_st7735** from the Target dropdown menu.
+In `oopsy.maxpat`, select your display size from the Target dropdown menu:
+- **seed_st7735** - for 128x160 displays
+- **seed_st7735_128x128** - for 128x128 displays
+- **seed_st7735_80x160** - for 80x160 displays
 
 ### 2. Create Your gen~ Patch
 
@@ -100,17 +112,18 @@ Use `RGB565(r, g, b)` to create custom colors:
 uint16_t myColor = Driver::RGB565(255, 128, 0); // Orange
 ```
 
-## Files Modified/Added
+## Files Added/Modified
 
 ### New Files
-- `source/libdaisy/src/dev/st7735.h` - ST7735 driver
-- `source/seed.st7735.json` - Oopsy target configuration
+- `source/st7735.h` - ST7735 driver with color support
+- `source/seed.st7735.json` - Target config for 128x160
+- `source/seed.st7735_128x128.json` - Target config for 128x128
+- `source/seed.st7735_80x160.json` - Target config for 80x160
+- `source/ST7735_README.md` - This documentation
 
 ### Modified Files
-- `source/oopsy.js` - Added ST7735 header detection and target path
+- `source/oopsy.js` - Added ST7735 header detection and target paths
 - `source/genlib_daisy.h` - Added color theme switching
-- `source/libdaisy/src/hid/disp/oled_display.h` - Added `GetDriver()` method
-- `patchers/oopsy.maxpat` - Added seed_st7735 to target menu
 
 ## Customizing Themes
 
@@ -138,7 +151,6 @@ Edit `genlib_daisy.h` to change color themes:
 
 | Property | Value |
 |----------|-------|
-| Resolution | 128 x 160 pixels |
 | Color Depth | 16-bit RGB565 (65K colors) |
 | Interface | SPI (4-wire) |
 | Controller | ST7735S |
@@ -158,6 +170,10 @@ Edit `genlib_daisy.h` to change color themes:
 ### Encoder not working
 - Verify encoder pins: A=D12, B=D11, Click=D0
 - Check if D0 conflicts with other hardware
+
+### Screen offset issues
+- Different ST7735 modules may need offset adjustment
+- Edit `st7735.h` CASET/RASET values if needed
 
 ## Author
 
