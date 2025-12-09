@@ -423,6 +423,7 @@ class ST7735Driver
 using ST7735_4WireSpi128x160Driver = ST7735Driver<128, 160, ST7735_4WireSpiTransport>;
 using ST7735_4WireSpi128x128Driver = ST7735Driver<128, 128, ST7735_4WireSpiTransport>;
 using ST7735_4WireSpi80x160Driver  = ST7735Driver<80, 160, ST7735_4WireSpiTransport>;
+using ST7735_4WireSpi128x64Driver  = ST7735Driver<128, 64, ST7735_4WireSpiTransport>;
 
 } // namespace daisy
 
