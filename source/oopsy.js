@@ -468,6 +468,8 @@ function run() {
 			case "bluemchen": target_path = path.join(__dirname, "seed.bluemchen.json"); break;
 			case "nehcmeulb": target_path = path.join(__dirname, "seed.nehcmeulb.json"); break;
 			case "seed_st7735": target_path = path.join(__dirname, "seed.st7735.json"); break;
+                        case "seed_st7735_128x128": target_path = path.join(__dirname, "seed.st7735_128x128.json"); break;
+                        case "seed_st7735_80x160": target_path = path.join(__dirname, "seed.st7735_80x160.json"); break;
 
 			case "watch": watch=true; break;
 
